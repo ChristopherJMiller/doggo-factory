@@ -65,3 +65,36 @@ export class DogResort extends Machine {
     );
   }
 }
+
+export class DogTown extends Machine {
+  constructor() {
+    super(
+      "Dog Town",
+      11000,
+      27,
+      0.45
+    );
+  }
+}
+
+export class DogCity extends Machine {
+  constructor() {
+    super(
+      "Dog City",
+      17000,
+      35,
+      0.5
+    );
+  }
+}
+
+export class DogCounty extends Machine {
+  constructor() {
+    super(
+      "Dog County",
+      25000,
+      40,
+      0.5
+    );
+  }
+}

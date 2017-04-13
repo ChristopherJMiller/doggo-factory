@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { DogBed, DogHouse, DogShelter, DogYard, DogHotel, DogResort } from './machines/MachineTypes.js';
+import { DogBed, DogHouse, DogShelter, DogYard, DogHotel, DogResort, DogTown, DogCity, DogCounty } from './machines/MachineTypes.js';
 import MachineTable from './MachineTable.js'
 
 
@@ -15,11 +15,18 @@ class App extends Component {
       yards: new DogYard(),
       shelters: new DogShelter(),
       hotels: new DogHotel(),
-      resorts: new DogResort()
+      resorts: new DogResort(),
+      towns: new DogTown(),
+      cities: new DogCity(),
+      counties: new DogCounty()
     };
 
     this.purchaseMachine = this.purchaseMachine.bind(this);
     this.updatePerSecond = 10;
+
+    this.totalBPS = function() {
+      return this.state.beds.totalBPS() + this.state.houses.totalBPS() + this.state.yards.totalBPS() + this.state.shelters.totalBPS() + this.state.hotels.totalBPS() + this.state.resorts.totalBPS() + this.state.towns.totalBPS() + this.state.cities.totalBPS() + this.state.counties.totalBPS();
+    }
   }
 
   purchaseMachine(machine) {
@@ -62,8 +69,10 @@ class App extends Component {
     });
   }
 
+
+
   tick() {
-    let bonesForTick = (this.state.beds.totalBPS() + this.state.houses.totalBPS() + this.state.yards.totalBPS() + this.state.shelters.totalBPS() + this.state.hotels.totalBPS() + this.state.resorts.totalBPS()) / this.updatePerSecond;
+    let bonesForTick = this.totalBPS() / this.updatePerSecond;
     this.setState({
       bones: this.state.bones + bonesForTick,
     });
@@ -88,7 +97,7 @@ class App extends Component {
             </tr>
             <tr>
               <td>Good bois</td>
-              <td>{ this.state.beds.totalBPS() + this.state.houses.totalBPS() + this.state.yards.totalBPS() + this.state.shelters.totalBPS() + this.state.hotels.totalBPS() + this.state.resorts.totalBPS() }</td>
+              <td>{ this.totalBPS() }</td>
               <td>
                 {button}
               </td>
@@ -99,6 +108,10 @@ class App extends Component {
             <MachineTable bones={ this.state.bones } machine={ this.state.shelters } purchaseMachine={this.purchaseMachine} />
             <MachineTable bones={ this.state.bones } machine={ this.state.hotels } purchaseMachine={this.purchaseMachine} />
             <MachineTable bones={ this.state.bones } machine={ this.state.resorts } purchaseMachine={this.purchaseMachine} />
+            <MachineTable bones={ this.state.bones } machine={ this.state.towns } purchaseMachine={this.purchaseMachine} />
+            <MachineTable bones={ this.state.bones } machine={ this.state.cities } purchaseMachine={this.purchaseMachine} />
+            <MachineTable bones={ this.state.bones } machine={ this.state.counties } purchaseMachine={this.purchaseMachine} />
+
           </tbody>
         </table>
       </div>
