@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { DogBed, DogHouse } from './machines/MachineTypes.js'
+import { DogBed, DogHouse, DogShelter, DogYard, DogHotel, DogResort } from './machines/MachineTypes.js';
+import MachineTable from './MachineTable.js'
 
 
 class App extends Component {
@@ -10,7 +11,11 @@ class App extends Component {
       bones: 0,
       canDig: true,
       beds: new DogBed(),
-      houses: new DogHouse()
+      houses: new DogHouse(),
+      yards: new DogYard(),
+      shelters: new DogShelter(),
+      hotels: new DogHotel(),
+      resorts: new DogResort()
     };
 
     this.purchaseMachine = this.purchaseMachine.bind(this);
@@ -46,7 +51,7 @@ class App extends Component {
   }
 
   tick() {
-    let bonesForTick = this.state.beds.totalBPS();
+    let bonesForTick = this.state.beds.totalBPS() + this.state.houses.totalBPS() + this.state.yards.totalBPS() + this.state.shelters.totalBPS() + this.state.hotels.totalBPS() + this.state.resorts.totalBPS();
     this.setState({
       bones: this.state.bones + bonesForTick,
       canDig: true
@@ -72,29 +77,17 @@ class App extends Component {
             </tr>
             <tr>
               <td>Good bois</td>
-              <td>{ this.state.beds.totalBPS() + this.state.houses.totalBPS() }</td>
+              <td>{ this.state.beds.totalBPS() + this.state.houses.totalBPS() + this.state.yards.totalBPS() + this.state.shelters.totalBPS() + this.state.hotels.totalBPS() + this.state.resorts.totalBPS() }</td>
               <td>
                 {button}
               </td>
             </tr>
-            <tr>
-              <td>{ this.state.beds.name }</td>
-              <td>{ this.state.beds.count }</td>
-              <td>
-                <button onClick={() => this.purchaseMachine(this.state.beds)}>
-                  Purchase: B$ { this.state.beds.unitCost() }
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>{ this.state.houses.name }</td>
-              <td>{ this.state.houses.count }</td>
-              <td>
-                <button onClick={() => this.purchaseMachine(this.state.houses)}>
-                  Purchase: B$ { this.state.houses.unitCost() }
-                </button>
-              </td>
-            </tr>
+            <MachineTable bones={ this.state.bones } machine={ this.state.beds } purchaseMachine={this.purchaseMachine} />
+            <MachineTable bones={ this.state.bones } machine={ this.state.houses } purchaseMachine={this.purchaseMachine} />
+            <MachineTable bones={ this.state.bones } machine={ this.state.yards } purchaseMachine={this.purchaseMachine} />
+            <MachineTable bones={ this.state.bones } machine={ this.state.shelters } purchaseMachine={this.purchaseMachine} />
+            <MachineTable bones={ this.state.bones } machine={ this.state.hotels } purchaseMachine={this.purchaseMachine} />
+            <MachineTable bones={ this.state.bones } machine={ this.state.resorts } purchaseMachine={this.purchaseMachine} />
           </tbody>
         </table>
       </div>
