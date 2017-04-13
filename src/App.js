@@ -19,6 +19,7 @@ class App extends Component {
     };
 
     this.purchaseMachine = this.purchaseMachine.bind(this);
+    this.updatePerSecond = 10;
   }
 
   purchaseMachine(machine) {
@@ -42,19 +43,29 @@ class App extends Component {
   componentDidMount() {
     this.timerID = setInterval(
       () => this.tick(),
+      1000 / this.updatePerSecond
+    );
+    this.timerDigID = setInterval(
+      () => this.digTick(),
       1000
     );
   }
 
   componentWillUnmount() {
     clearInterval(this.timerID);
+    clearInterval(this.timerDigID);
+  }
+
+  digTick() {
+    this.setState({
+      canDig: true
+    });
   }
 
   tick() {
-    let bonesForTick = this.state.beds.totalBPS() + this.state.houses.totalBPS() + this.state.yards.totalBPS() + this.state.shelters.totalBPS() + this.state.hotels.totalBPS() + this.state.resorts.totalBPS();
+    let bonesForTick = (this.state.beds.totalBPS() + this.state.houses.totalBPS() + this.state.yards.totalBPS() + this.state.shelters.totalBPS() + this.state.hotels.totalBPS() + this.state.resorts.totalBPS()) / this.updatePerSecond;
     this.setState({
       bones: this.state.bones + bonesForTick,
-      canDig: true
     });
   }
 
@@ -73,7 +84,7 @@ class App extends Component {
           <tbody>
             <tr>
               <td>Bones</td>
-              <td>{ this.state.bones }</td>
+              <td>{ Math.round(this.state.bones) }</td>
             </tr>
             <tr>
               <td>Good bois</td>
