@@ -6,7 +6,18 @@ export class DogBed extends Machine {
       "Dog Bed",
       10,
       1,
-      1.5
+      0.25
+    );
+  }
+}
+
+export class DogHouse extends Machine {
+  constructor() {
+    super(
+      "Doghouse",
+      50,
+      3,
+      0.2
     );
   }
 }
