@@ -1,10 +1,13 @@
 {
   "name": "doggo-factory",
   "version": "0.1.0",
+  "homepage": "http://chrismiller.xyz/doggo-factory"
   "private": true,
   "dependencies": {
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "semantic-ui-css": "^2.2.10",
+    "semantic-ui-react": "^0.68.3"
   },
   "devDependencies": {
     "react-scripts": "0.9.5"
