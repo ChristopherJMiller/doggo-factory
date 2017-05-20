@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Button, Table, Header } from 'semantic-ui-react'
+import { Button, Table, Header, Grid } from 'semantic-ui-react'
 
 import Machine from './machines/Machine.js'
 import { DogBed, DogHouse, DogShelter, DogYard, DogHotel, DogResort, DogTown, DogCity, DogCounty } from './machines/MachineTypes.js';
@@ -130,56 +130,65 @@ class App extends Component {
     return (
       <div>
         <Header as='h1' block>Doggo Factory</Header>
-        <Table>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Unit</Table.HeaderCell>
-              <Table.HeaderCell>Unit Count</Table.HeaderCell>
-              <Table.HeaderCell>Durability</Table.HeaderCell>
-              <Table.HeaderCell></Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            <Table.Row>
-              <Table.Cell>Bones</Table.Cell>
-              <Table.Cell>{ Math.round(this.state.bones) }</Table.Cell>
-            </Table.Row>
-            <Table.Row>
-              <Table.Cell>Good bois</Table.Cell>
-              <Table.Cell>{ this.totalBPS() }</Table.Cell>
-              <Table.Cell></Table.Cell>
-              <Table.Cell>
-                {button}
-              </Table.Cell>
-            </Table.Row>
-            <MachineTable bones={ this.state.bones } machine={ this.state.beds } purchaseMachine={this.purchaseMachine} />
-            <MachineTable bones={ this.state.bones } machine={ this.state.houses } purchaseMachine={this.purchaseMachine} />
-            <MachineTable bones={ this.state.bones } machine={ this.state.yards } purchaseMachine={this.purchaseMachine} />
-            <MachineTable bones={ this.state.bones } machine={ this.state.shelters } purchaseMachine={this.purchaseMachine} />
-            <MachineTable bones={ this.state.bones } machine={ this.state.hotels } purchaseMachine={this.purchaseMachine} />
-            <MachineTable bones={ this.state.bones } machine={ this.state.resorts } purchaseMachine={this.purchaseMachine} />
-            <MachineTable bones={ this.state.bones } machine={ this.state.towns } purchaseMachine={this.purchaseMachine} />
-            <MachineTable bones={ this.state.bones } machine={ this.state.cities } purchaseMachine={this.purchaseMachine} />
-            <MachineTable bones={ this.state.bones } machine={ this.state.counties } purchaseMachine={this.purchaseMachine} />
-          </Table.Body>
-        </Table>
+        <Grid divided='vertically'>
+          <Grid.Row columns={2}>
+            <Grid.Column width={10}>
+              <Header as='h1' block>Units</Header>
+              <Table>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Unit</Table.HeaderCell>
+                    <Table.HeaderCell>Unit Count</Table.HeaderCell>
+                    <Table.HeaderCell>Durability</Table.HeaderCell>
+                    <Table.HeaderCell></Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  <Table.Row>
+                    <Table.Cell>Bones</Table.Cell>
+                    <Table.Cell>{ Math.round(this.state.bones) }</Table.Cell>
+                  </Table.Row>
+                  <Table.Row>
+                    <Table.Cell>Good bois</Table.Cell>
+                    <Table.Cell>{ this.totalBPS() }</Table.Cell>
+                    <Table.Cell></Table.Cell>
+                    <Table.Cell>
+                      {button}
+                    </Table.Cell>
+                  </Table.Row>
+                  <MachineTable bones={ this.state.bones } machine={ this.state.beds } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } machine={ this.state.houses } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } machine={ this.state.yards } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } machine={ this.state.shelters } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } machine={ this.state.hotels } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } machine={ this.state.resorts } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } machine={ this.state.towns } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } machine={ this.state.cities } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } machine={ this.state.counties } purchaseMachine={this.purchaseMachine} />
+                </Table.Body>
+              </Table>
+            </Grid.Column>
 
-        <Header as='h1' block>Upgrades</Header>
-        <Table>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Unit</Table.HeaderCell>
-              <Table.HeaderCell></Table.HeaderCell>
-              <Table.HeaderCell></Table.HeaderCell>
-              <Table.HeaderCell></Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            <UpgradeTable bones={ this.state.bones } machine={ new Machine("Bone Dig") } upgrade={ this.state.digBonesUp } purchaseUpgrade={this.purchaseUpgrade} />
-            <UpgradeTable bones={ this.state.bones } machine={ this.state.beds } upgrade={ this.state.bedDurabilityUp } purchaseUpgrade={this.purchaseUpgrade} />
-            <UpgradeTable bones={ this.state.bones } machine={ this.state.houses } upgrade={ this.state.houseDurabilityUp } purchaseUpgrade={this.purchaseUpgrade} />
-          </Table.Body>
-        </Table>
+            <Grid.Column width={6}>
+              <Header as='h1' block>Upgrades</Header>
+              <Table>
+                <Table.Header>
+                  <Table.Row>
+                    <Table.HeaderCell>Unit</Table.HeaderCell>
+                    <Table.HeaderCell></Table.HeaderCell>
+                    <Table.HeaderCell></Table.HeaderCell>
+                    <Table.HeaderCell></Table.HeaderCell>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
+                  <UpgradeTable bones={ this.state.bones } machine={ new Machine("Bone Dig") } upgrade={ this.state.digBonesUp } purchaseUpgrade={this.purchaseUpgrade} />
+                  <UpgradeTable bones={ this.state.bones } machine={ this.state.beds } upgrade={ this.state.bedDurabilityUp } purchaseUpgrade={this.purchaseUpgrade} />
+                  <UpgradeTable bones={ this.state.bones } machine={ this.state.houses } upgrade={ this.state.houseDurabilityUp } purchaseUpgrade={this.purchaseUpgrade} />
+                </Table.Body>
+              </Table>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </div>
     );
   }
