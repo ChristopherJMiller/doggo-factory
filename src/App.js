@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
+import { Button, Table, Header } from 'semantic-ui-react'
+
+import Machine from './machines/Machine.js'
 import { DogBed, DogHouse, DogShelter, DogYard, DogHotel, DogResort, DogTown, DogCity, DogCounty } from './machines/MachineTypes.js';
 import MachineTable from './MachineTable.js'
-import { Button, Table } from 'semantic-ui-react'
+
+import { DigBonesUp } from './upgrades/UpgradeTypes.js'
+import UpgradeTable from './UpgradeTable.js'
+
 
 
 
@@ -20,10 +26,15 @@ class App extends Component {
       resorts: new DogResort(),
       towns: new DogTown(),
       cities: new DogCity(),
-      counties: new DogCounty()
+      counties: new DogCounty(),
+
+
+      digBonesUp: new DigBonesUp()
     };
 
     this.purchaseMachine = this.purchaseMachine.bind(this);
+    this.purchaseUpgrade = this.purchaseUpgrade.bind(this);
+
     this.updatePerSecond = 10;
 
     this.totalBPS = function() {
@@ -40,10 +51,19 @@ class App extends Component {
     }
   }
 
+  purchaseUpgrade(upgrade) {
+    if (this.state.bones >= upgrade.upgradeCost()) {
+      this.setState({
+        bones: this.state.bones - upgrade.upgradeCost()
+      });
+      upgrade.purchaseUpgrade();
+    }
+  }
+
   digUpBone() {
     if (this.state.canDig) {
       this.setState({
-        bones: this.state.bones + 1,
+        bones: this.state.bones + 1 + this.state.digBonesUp.count,
         canDig: false
       });
     }
@@ -71,8 +91,6 @@ class App extends Component {
     });
   }
 
-
-
   tick() {
     let bonesForTick = this.totalBPS() / this.updatePerSecond;
     this.setState({
@@ -82,15 +100,19 @@ class App extends Component {
 
   render() {
     let button = null;
+    let boneWord = 'Bone';
+    if (this.state.digBonesUp.count > 0) {
+      boneWord = 'Bones';
+    }
     if (this.state.canDig) {
-      button = <Button onClick={() => this.digUpBone()}>Dig Up Bone</Button>;
+      button = <Button onClick={() => this.digUpBone()} >Dig Up { 1 + this.state.digBonesUp.count } { boneWord }</Button>;
     } else {
       button = <Button disabled loading>Dig Up Bone</Button>;
     }
 
     return (
       <div>
-        <h1>Doggo Factory</h1>
+        <Header as='h1' block>Doggo Factory</Header>
         <Table>
           <Table.Header>
             <Table.Row>
@@ -122,7 +144,21 @@ class App extends Component {
             <MachineTable bones={ this.state.bones } machine={ this.state.towns } purchaseMachine={this.purchaseMachine} />
             <MachineTable bones={ this.state.bones } machine={ this.state.cities } purchaseMachine={this.purchaseMachine} />
             <MachineTable bones={ this.state.bones } machine={ this.state.counties } purchaseMachine={this.purchaseMachine} />
+          </Table.Body>
+        </Table>
 
+        <Header as='h1' block>Upgrades</Header>
+        <Table>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Unit</Table.HeaderCell>
+              <Table.HeaderCell></Table.HeaderCell>
+              <Table.HeaderCell></Table.HeaderCell>
+              <Table.HeaderCell></Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            <UpgradeTable bones={ this.state.bones } machine={ new Machine("Bone Dig") } upgrade={ this.state.digBonesUp } purchaseUpgrade={this.purchaseUpgrade} />
           </Table.Body>
         </Table>
       </div>
