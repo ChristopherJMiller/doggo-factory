@@ -19,7 +19,7 @@ class MachineTable extends Component {
       <Table.Row>
         <Table.Cell>{ this.props.machine.name }</Table.Cell>
         <Table.Cell>{ this.props.machine.count }</Table.Cell>
-        <Table.Cell><Progress progress percent={(this.props.machine.currentLifetime / this.props.machine.totalLifetime) * 100} /></Table.Cell>
+        <Table.Cell><Progress progress percent={Math.round((this.props.machine.currentLifetime / this.props.machine.totalLifetime) * 100)} /></Table.Cell>
         <Table.Cell>
           { button }
         </Table.Cell>
