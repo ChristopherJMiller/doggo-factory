@@ -6,7 +6,7 @@ import Machine from './machines/Machine.js'
 import { DogBed, DogHouse, DogShelter, DogYard, DogHotel, DogResort, DogTown, DogCity, DogCounty } from './machines/MachineTypes.js';
 import MachineTable from './MachineTable.js'
 
-import { DigBonesUp } from './upgrades/UpgradeTypes.js'
+import { DigBonesUp, BedDurabilityUp, HouseDurabilityUp } from './upgrades/UpgradeTypes.js'
 import UpgradeTable from './UpgradeTable.js'
 
 
@@ -29,7 +29,9 @@ class App extends Component {
       counties: new DogCounty(),
 
 
-      digBonesUp: new DigBonesUp()
+      digBonesUp: new DigBonesUp(),
+      bedDurabilityUp: new BedDurabilityUp(),
+      houseDurabilityUp: new HouseDurabilityUp()
     };
 
     this.purchaseMachine = this.purchaseMachine.bind(this);
@@ -39,6 +41,11 @@ class App extends Component {
 
     this.totalBPS = function() {
       return this.state.beds.totalBPS() + this.state.houses.totalBPS() + this.state.yards.totalBPS() + this.state.shelters.totalBPS() + this.state.hotels.totalBPS() + this.state.resorts.totalBPS() + this.state.towns.totalBPS() + this.state.cities.totalBPS() + this.state.counties.totalBPS();
+    }
+
+    this.updateUpgradeCorrelations = function() {
+      this.state.beds.totalLifetime = this.state.beds.startingLifeTime + (this.state.beds.startingLifeTime * (0.1 * this.state.bedDurabilityUp.count));
+      this.state.houses.totalLifetime = this.state.houses.startingLifeTime + (this.state.houses.startingLifeTime * (0.1 * this.state.houseDurabilityUp.count));
     }
   }
 
@@ -57,6 +64,7 @@ class App extends Component {
         bones: this.state.bones - upgrade.upgradeCost()
       });
       upgrade.purchaseUpgrade();
+      this.updateUpgradeCorrelations();
     }
   }
 
@@ -96,6 +104,15 @@ class App extends Component {
     this.setState({
       bones: this.state.bones + bonesForTick,
     });
+    this.state.beds.tickLifetime();
+    this.state.houses.tickLifetime();
+    this.state.yards.tickLifetime();
+    this.state.shelters.tickLifetime();
+    this.state.hotels.tickLifetime();
+    this.state.apartments.tickLifetime();
+    this.state.towns.tickLifetime();
+    this.state.cities.tickLifetime();
+    this.state.counties.tickLifetime();
   }
 
   render() {
@@ -159,6 +176,8 @@ class App extends Component {
           </Table.Header>
           <Table.Body>
             <UpgradeTable bones={ this.state.bones } machine={ new Machine("Bone Dig") } upgrade={ this.state.digBonesUp } purchaseUpgrade={this.purchaseUpgrade} />
+            <UpgradeTable bones={ this.state.bones } machine={ this.state.beds } upgrade={ this.state.bedDurabilityUp } purchaseUpgrade={this.purchaseUpgrade} />
+            <UpgradeTable bones={ this.state.bones } machine={ this.state.houses } upgrade={ this.state.houseDurabilityUp } purchaseUpgrade={this.purchaseUpgrade} />
           </Table.Body>
         </Table>
       </div>

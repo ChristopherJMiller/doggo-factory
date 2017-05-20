@@ -42,7 +42,8 @@ export class DogShelter extends Machine {
       "Dog Shelter",
       1200,
       10,
-      0.35
+      0.35,
+      30
     );
   }
 }
@@ -53,7 +54,8 @@ export class DogHotel extends Machine {
       "Dog Hotel",
       3000,
       15,
-      0.4
+      0.4,
+      25
     );
   }
 }
@@ -64,7 +66,8 @@ export class DogResort extends Machine {
       "Dog Apartment",
       7500,
       20,
-      0.45
+      0.45,
+      35
     );
   }
 }
@@ -75,7 +78,8 @@ export class DogTown extends Machine {
       "Dog Town",
       11000,
       27,
-      0.45
+      0.45,
+      40
     );
   }
 }
@@ -86,7 +90,8 @@ export class DogCity extends Machine {
       "Dog City",
       17000,
       35,
-      0.5
+      0.5,
+      45
     );
   }
 }
@@ -97,7 +102,8 @@ export class DogCounty extends Machine {
       "Dog County",
       25000,
       40,
-      0.5
+      0.5,
+      45
     );
   }
 }

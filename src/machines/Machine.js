@@ -7,6 +7,7 @@ export default class Machine {
     this.upm = unitPriceMultiplier;
     this.count = 0;
     this.totalLifetime = perLife;
+    this.startingLifeTime = this.totalLifetime;
     this.currentLifetime = 0;
 
     this.unitCost = function() {
@@ -19,15 +20,15 @@ export default class Machine {
 
     this.tickLifetime = function() {
       if (this.count > 0) {
-        this.currentLifetime--;
+        this.currentLifetime -= 0.1;
         if (this.currentLifetime <= 0) {
           this.count--;
-          this.currentLifetime = this.totalLifetime;
+          if (this.count != 0) {
+            this.currentLifetime = this.totalLifetime;
+          }
         }
       }
     }
-
-    this.timer = setInterval(() => this.tickLifetime(), 1000);
   }
 
   purchaseMachine() {
