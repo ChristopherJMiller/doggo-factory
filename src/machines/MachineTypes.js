@@ -6,7 +6,8 @@ export class DogBed extends Machine {
       "Dog Bed",
       10,
       1,
-      0.25
+      0.25,
+      25
     );
   }
 }
@@ -17,7 +18,8 @@ export class DogHouse extends Machine {
       "Doghouse",
       70,
       3,
-      0.25
+      0.25,
+      20
     );
   }
 }
@@ -28,7 +30,8 @@ export class DogYard extends Machine {
       "Yard",
       300,
       5,
-      0.3
+      0.3,
+      20
     );
   }
 }

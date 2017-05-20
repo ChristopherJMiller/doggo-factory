@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import { DogBed, DogHouse, DogShelter, DogYard, DogHotel, DogResort, DogTown, DogCity, DogCounty } from './machines/MachineTypes.js';
 import MachineTable from './MachineTable.js'
+import { Button, Table } from 'semantic-ui-react'
+
 
 
 class App extends Component {
@@ -81,27 +83,36 @@ class App extends Component {
   render() {
     let button = null;
     if (this.state.canDig) {
-      button = <button onClick={() => this.digUpBone()}>Dig Up Bone</button>;
+      button = <Button onClick={() => this.digUpBone()}>Dig Up Bone</Button>;
     } else {
-      button = <button disabled>Dig Up Bone</button>;
+      button = <Button disabled loading>Dig Up Bone</Button>;
     }
 
     return (
       <div>
         <h1>Doggo Factory</h1>
-        <table>
-          <tbody>
-            <tr>
-              <td>Bones</td>
-              <td>{ Math.round(this.state.bones) }</td>
-            </tr>
-            <tr>
-              <td>Good bois</td>
-              <td>{ this.totalBPS() }</td>
-              <td>
+        <Table>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Unit</Table.HeaderCell>
+              <Table.HeaderCell>Unit Count</Table.HeaderCell>
+              <Table.HeaderCell>Durability</Table.HeaderCell>
+              <Table.HeaderCell></Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>Bones</Table.Cell>
+              <Table.Cell>{ Math.round(this.state.bones) }</Table.Cell>
+            </Table.Row>
+            <Table.Row>
+              <Table.Cell>Good bois</Table.Cell>
+              <Table.Cell>{ this.totalBPS() }</Table.Cell>
+              <Table.Cell></Table.Cell>
+              <Table.Cell>
                 {button}
-              </td>
-            </tr>
+              </Table.Cell>
+            </Table.Row>
             <MachineTable bones={ this.state.bones } machine={ this.state.beds } purchaseMachine={this.purchaseMachine} />
             <MachineTable bones={ this.state.bones } machine={ this.state.houses } purchaseMachine={this.purchaseMachine} />
             <MachineTable bones={ this.state.bones } machine={ this.state.yards } purchaseMachine={this.purchaseMachine} />
@@ -112,8 +123,8 @@ class App extends Component {
             <MachineTable bones={ this.state.bones } machine={ this.state.cities } purchaseMachine={this.purchaseMachine} />
             <MachineTable bones={ this.state.bones } machine={ this.state.counties } purchaseMachine={this.purchaseMachine} />
 
-          </tbody>
-        </table>
+          </Table.Body>
+        </Table>
       </div>
     );
   }

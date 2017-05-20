@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, Table, Progress } from 'semantic-ui-react'
 
 class MachineTable extends Component {
   constructor(props) {
@@ -9,19 +10,20 @@ class MachineTable extends Component {
   render() {
     let button = null;
     if (this.props.bones >= this.props.machine.unitCost()) {
-      button = <button onClick={() => this.props.purchaseMachine(this.props.machine)}>Purchase: B$ { this.props.machine.unitCost() }</button>;
+      button = <Button onClick={() => this.props.purchaseMachine(this.props.machine)}>Purchase: B$ { this.props.machine.unitCost() }</Button>;
     } else {
-      button = <button disabled>Purchase: B$ { this.props.machine.unitCost() }</button>;
+      button = <Button disabled>Purchase: B$ { this.props.machine.unitCost() }</Button>;
     }
 
     return (
-      <tr>
-        <td>{ this.props.machine.name }</td>
-        <td>{ this.props.machine.count }</td>
-        <td>
+      <Table.Row>
+        <Table.Cell>{ this.props.machine.name }</Table.Cell>
+        <Table.Cell>{ this.props.machine.count }</Table.Cell>
+        <Table.Cell><Progress progress percent={(this.props.machine.currentLifetime / this.props.machine.totalLifetime) * 100} /></Table.Cell>
+        <Table.Cell>
           { button }
-        </td>
-      </tr>
+        </Table.Cell>
+      </Table.Row>
     );
   }
 }

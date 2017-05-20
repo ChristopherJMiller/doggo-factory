@@ -1,11 +1,13 @@
 export default class Machine {
 
-  constructor(name, price, bonesPerSecond, unitPriceMultiplier) {
+  constructor(name, price, bonesPerSecond, unitPriceMultiplier, perLife) {
     this.name = name;
     this.price = price;
     this.bps = bonesPerSecond;
     this.upm = unitPriceMultiplier;
     this.count = 0;
+    this.totalLifetime = perLife;
+    this.currentLifetime = 0;
 
     this.unitCost = function() {
       return Math.ceil(this.price * Math.pow(1 + this.upm, this.count));
@@ -14,9 +16,22 @@ export default class Machine {
     this.totalBPS = function() {
       return this.bps * this.count;
     }
+
+    this.tickLifetime = function() {
+      if (this.count > 0) {
+        this.currentLifetime--;
+        if (this.currentLifetime <= 0) {
+          this.count--;
+          this.currentLifetime = this.totalLifetime;
+        }
+      }
+    }
+
+    this.timer = setInterval(() => this.tickLifetime(), 1000);
   }
 
   purchaseMachine() {
     this.count++;
+    this.currentLifetime = this.totalLifetime;
   }
 }
