@@ -1,7 +1,7 @@
 {
   "name": "doggo-factory",
   "version": "0.1.0",
-  "homepage": "http://chrismiller.xyz/doggo-factory"
+  "homepage": "http://chrismiller.xyz/doggo-factory",
   "private": true,
   "dependencies": {
     "react": "^15.5.4",
