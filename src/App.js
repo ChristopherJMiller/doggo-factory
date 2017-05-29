@@ -6,7 +6,7 @@ import Machine from './machines/Machine.js'
 import { DogBed, DogHouse, DogShelter, DogYard, DogHotel, DogResort, DogTown, DogCity, DogCounty } from './machines/MachineTypes.js';
 import MachineTable from './MachineTable.js'
 
-import { DigBonesUp, BedDurabilityUp, HouseDurabilityUp } from './upgrades/UpgradeTypes.js'
+import { DigBonesUp, BedDurabilityUp, HouseDurabilityUp, YardDurabilityUp } from './upgrades/UpgradeTypes.js'
 import UpgradeTable from './UpgradeTable.js'
 
 
@@ -31,7 +31,8 @@ class App extends Component {
 
       digBonesUp: new DigBonesUp(),
       bedDurabilityUp: new BedDurabilityUp(),
-      houseDurabilityUp: new HouseDurabilityUp()
+      houseDurabilityUp: new HouseDurabilityUp(),
+      yardDurabilityUp: new YardDurabilityUp()
     };
 
     this.purchaseMachine = this.purchaseMachine.bind(this);
@@ -117,9 +118,9 @@ class App extends Component {
 
   render() {
     let button = null;
-    let boneWord = 'Bone';
-    if (this.state.digBonesUp.count > 0) {
-      boneWord = 'Bones';
+    let boneWord = 'bone';
+    if (this.totalBPS() != 1) {
+      boneWord = 'bones';
     }
     if (this.state.canDig) {
       button = <Button onClick={() => this.digUpBone()} >Dig Up { 1 + this.state.digBonesUp.count } { boneWord }</Button>;
@@ -133,6 +134,18 @@ class App extends Component {
         <Grid divided='vertically'>
           <Grid.Row columns={2}>
             <Grid.Column width={10}>
+              <Table>
+                <Table.Header>
+                  <Table.HeaderCell>Bones</Table.HeaderCell>
+                  <Table.HeaderCell></Table.HeaderCell>
+                </Table.Header>
+                <Table.Body>
+                  <Table.Row>
+                    <Table.Cell>{ Math.round(this.state.bones) } ({ this.totalBPS() } { boneWord } per second)</Table.Cell>
+                    <Table.Cell>{button}</Table.Cell>
+                  </Table.Row>
+                </Table.Body>
+              </Table>
               <Header as='h1' block>Units</Header>
               <Table>
                 <Table.Header>
@@ -144,18 +157,6 @@ class App extends Component {
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                  <Table.Row>
-                    <Table.Cell>Bones</Table.Cell>
-                    <Table.Cell>{ Math.round(this.state.bones) }</Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Good bois</Table.Cell>
-                    <Table.Cell>{ this.totalBPS() }</Table.Cell>
-                    <Table.Cell></Table.Cell>
-                    <Table.Cell>
-                      {button}
-                    </Table.Cell>
-                  </Table.Row>
                   <MachineTable bones={ this.state.bones } machine={ this.state.beds } purchaseMachine={this.purchaseMachine} />
                   <MachineTable bones={ this.state.bones } machine={ this.state.houses } purchaseMachine={this.purchaseMachine} />
                   <MachineTable bones={ this.state.bones } machine={ this.state.yards } purchaseMachine={this.purchaseMachine} />
@@ -184,6 +185,7 @@ class App extends Component {
                   <UpgradeTable bones={ this.state.bones } machine={ new Machine("Bone Dig") } upgrade={ this.state.digBonesUp } purchaseUpgrade={this.purchaseUpgrade} />
                   <UpgradeTable bones={ this.state.bones } machine={ this.state.beds } upgrade={ this.state.bedDurabilityUp } purchaseUpgrade={this.purchaseUpgrade} />
                   <UpgradeTable bones={ this.state.bones } machine={ this.state.houses } upgrade={ this.state.houseDurabilityUp } purchaseUpgrade={this.purchaseUpgrade} />
+                  <UpgradeTable bones={ this.state.bones } machine={ this.state.yards } upgrade={ this.state.yardDurabilityUp } purchaseUpgrade={this.purchaseUpgrade} />
                 </Table.Body>
               </Table>
             </Grid.Column>
