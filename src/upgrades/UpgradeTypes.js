@@ -29,3 +29,13 @@ export class HouseDurabilityUp extends Upgrade {
     );
   }
 }
+
+export class YardDurabilityUp extends Upgrade {
+  constructor() {
+    super(
+      "Durability Increase +10%",
+      320,
+      0.25
+    );
+  }
+}
