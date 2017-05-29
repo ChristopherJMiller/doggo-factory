@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { Button, Table, Progress } from 'semantic-ui-react'
+import { Button, Table, Progress, Popup, Icon } from 'semantic-ui-react'
 
 class MachineTable extends Component {
   constructor(props) {
     super(props);
-
+    let boneWord = 'bone';
+    if (this.props.machine.bps != 1) {
+      boneWord = 'bones';
+    }
+    this.message = 'Produces ' + this.props.machine.bps + ' ' + boneWord + ' per second.\nSurvives for ' + this.props.machine.totalLifetime + ' seconds.';
   }
 
   render() {
@@ -17,7 +21,15 @@ class MachineTable extends Component {
 
     return (
       <Table.Row>
-        <Table.Cell>{ this.props.machine.name }</Table.Cell>
+        <Table.Cell>
+          { this.props.machine.name }
+          <Popup
+           trigger={<Icon name='question circle outline' />}
+           header={this.props.machine.name}
+           content={ this.message }
+           on='hover'
+          />
+        </Table.Cell>
         <Table.Cell>{ this.props.machine.count }</Table.Cell>
         <Table.Cell><Progress value={this.props.machine.currentLifetime} total={this.props.machine.totalLifetime} progress='percent' precision={1} /></Table.Cell>
         <Table.Cell>
