@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Table, Progress, Popup, Icon } from 'semantic-ui-react'
+import { Button, Table, Progress, Popup, Icon, Dimmer } from 'semantic-ui-react'
 
 class MachineTable extends Component {
   constructor(props) {
@@ -19,8 +19,9 @@ class MachineTable extends Component {
       button = <Button disabled>Purchase: B$ { this.props.machine.unitCost() }</Button>;
     }
 
+    let rowHeader = this.props.totalBones < this.props.machine.price;
     return (
-      <Table.Row>
+      <Table.Row disabled={ rowHeader }>
         <Table.Cell>
           { this.props.machine.name }
           <Popup

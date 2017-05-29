@@ -17,7 +17,10 @@ class App extends Component {
     super(props);
     this.state = {
       bones: 0,
+      totalBones: 0,
+
       canDig: true,
+
       beds: new DogBed(),
       houses: new DogHouse(),
       yards: new DogYard(),
@@ -73,6 +76,7 @@ class App extends Component {
     if (this.state.canDig) {
       this.setState({
         bones: this.state.bones + 1 + this.state.digBonesUp.count,
+        totalBones: this.state.totalBones + 1 + this.state.digBonesUp.count,
         canDig: false
       });
     }
@@ -104,13 +108,14 @@ class App extends Component {
     let bonesForTick = this.totalBPS() / this.updatePerSecond;
     this.setState({
       bones: this.state.bones + bonesForTick,
+      totalBones: this.state.totalBones + bonesForTick,
     });
     this.state.beds.tickLifetime();
     this.state.houses.tickLifetime();
     this.state.yards.tickLifetime();
     this.state.shelters.tickLifetime();
     this.state.hotels.tickLifetime();
-    this.state.apartments.tickLifetime();
+    this.state.resorts.tickLifetime();
     this.state.towns.tickLifetime();
     this.state.cities.tickLifetime();
     this.state.counties.tickLifetime();
@@ -157,15 +162,15 @@ class App extends Component {
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                  <MachineTable bones={ this.state.bones } machine={ this.state.beds } purchaseMachine={this.purchaseMachine} />
-                  <MachineTable bones={ this.state.bones } machine={ this.state.houses } purchaseMachine={this.purchaseMachine} />
-                  <MachineTable bones={ this.state.bones } machine={ this.state.yards } purchaseMachine={this.purchaseMachine} />
-                  <MachineTable bones={ this.state.bones } machine={ this.state.shelters } purchaseMachine={this.purchaseMachine} />
-                  <MachineTable bones={ this.state.bones } machine={ this.state.hotels } purchaseMachine={this.purchaseMachine} />
-                  <MachineTable bones={ this.state.bones } machine={ this.state.resorts } purchaseMachine={this.purchaseMachine} />
-                  <MachineTable bones={ this.state.bones } machine={ this.state.towns } purchaseMachine={this.purchaseMachine} />
-                  <MachineTable bones={ this.state.bones } machine={ this.state.cities } purchaseMachine={this.purchaseMachine} />
-                  <MachineTable bones={ this.state.bones } machine={ this.state.counties } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } totalBones={ this.state.totalBones } machine={ this.state.beds } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } totalBones={ this.state.totalBones } machine={ this.state.houses } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } totalBones={ this.state.totalBones } machine={ this.state.yards } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } totalBones={ this.state.totalBones } machine={ this.state.shelters } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } totalBones={ this.state.totalBones } machine={ this.state.hotels } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } totalBones={ this.state.totalBones } machine={ this.state.resorts } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } totalBones={ this.state.totalBones } machine={ this.state.towns } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } totalBones={ this.state.totalBones } machine={ this.state.cities } purchaseMachine={this.purchaseMachine} />
+                  <MachineTable bones={ this.state.bones } totalBones={ this.state.totalBones } machine={ this.state.counties } purchaseMachine={this.purchaseMachine} />
                 </Table.Body>
               </Table>
             </Grid.Column>
@@ -182,10 +187,10 @@ class App extends Component {
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                  <UpgradeTable bones={ this.state.bones } machine={ new Machine("Bone Dig") } upgrade={ this.state.digBonesUp } purchaseUpgrade={this.purchaseUpgrade} />
-                  <UpgradeTable bones={ this.state.bones } machine={ this.state.beds } upgrade={ this.state.bedDurabilityUp } purchaseUpgrade={this.purchaseUpgrade} />
-                  <UpgradeTable bones={ this.state.bones } machine={ this.state.houses } upgrade={ this.state.houseDurabilityUp } purchaseUpgrade={this.purchaseUpgrade} />
-                  <UpgradeTable bones={ this.state.bones } machine={ this.state.yards } upgrade={ this.state.yardDurabilityUp } purchaseUpgrade={this.purchaseUpgrade} />
+                  <UpgradeTable bones={ this.state.bones } totalBones={ this.state.totalBones } machine={ new Machine("Bone Dig") } upgrade={ this.state.digBonesUp } purchaseUpgrade={this.purchaseUpgrade} />
+                  <UpgradeTable bones={ this.state.bones } totalBones={ this.state.totalBones } machine={ this.state.beds } upgrade={ this.state.bedDurabilityUp } purchaseUpgrade={this.purchaseUpgrade} />
+                  <UpgradeTable bones={ this.state.bones } totalBones={ this.state.totalBones } machine={ this.state.houses } upgrade={ this.state.houseDurabilityUp } purchaseUpgrade={this.purchaseUpgrade} />
+                  <UpgradeTable bones={ this.state.bones } totalBones={ this.state.totalBones } machine={ this.state.yards } upgrade={ this.state.yardDurabilityUp } purchaseUpgrade={this.purchaseUpgrade} />
                 </Table.Body>
               </Table>
             </Grid.Column>
