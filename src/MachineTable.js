@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Button, Table, Progress, Popup, Icon, Dimmer } from 'semantic-ui-react'
+import { Button, Table, Progress, Popup, Icon } from 'semantic-ui-react'
 
 class MachineTable extends Component {
   constructor(props) {
     super(props);
     let boneWord = 'bone';
-    if (this.props.machine.bps != 1) {
+    if (this.props.machine.bps !== 1) {
       boneWord = 'bones';
     }
     this.message = 'Produces ' + this.props.machine.bps + ' ' + boneWord + ' per second.\nSurvives for ' + this.props.machine.totalLifetime + ' seconds.';

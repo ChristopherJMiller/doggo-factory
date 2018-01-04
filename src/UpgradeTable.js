@@ -4,10 +4,6 @@ import { Table } from 'semantic-ui-react'
 import UpgradeButton from './upgrades/UpgradeButton.js'
 
 class UpgradeTable extends Component {
-  constructor(props) {
-    super(props);
-
-  }
 
   render() {
     return (

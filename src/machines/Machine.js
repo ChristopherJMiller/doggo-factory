@@ -23,7 +23,7 @@ export default class Machine {
         this.currentLifetime -= 0.1;
         if (this.currentLifetime <= 0) {
           this.count--;
-          if (this.count != 0) {
+          if (this.count !== 0) {
             this.currentLifetime = this.totalLifetime;
           }
         }
