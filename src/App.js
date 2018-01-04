@@ -48,7 +48,9 @@ class App extends Component {
     }
 
     this.updateUpgradeCorrelations = function() {
+      // eslint-disable-next-line
       this.state.beds.totalLifetime = this.state.beds.startingLifeTime + (this.state.beds.startingLifeTime * (0.1 * this.state.bedDurabilityUp.count));
+      // eslint-disable-next-line
       this.state.houses.totalLifetime = this.state.houses.startingLifeTime + (this.state.houses.startingLifeTime * (0.1 * this.state.houseDurabilityUp.count));
     }
   }
@@ -124,7 +126,7 @@ class App extends Component {
   render() {
     let button = null;
     let boneWord = 'bone';
-    if (this.totalBPS() != 1) {
+    if (this.totalBPS() !== 1) {
       boneWord = 'bones';
     }
     if (this.state.canDig) {

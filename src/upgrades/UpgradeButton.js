@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { Button, Table } from 'semantic-ui-react'
 
 class UpgradeButton extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     let button = null;
