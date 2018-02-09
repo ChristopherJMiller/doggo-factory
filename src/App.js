@@ -6,7 +6,7 @@ import Machine from './machines/Machine.js'
 import { DogBed, DogHouse, DogShelter, DogYard, DogHotel, DogResort, DogTown, DogCity, DogCounty } from './machines/MachineTypes.js';
 import MachineTable from './MachineTable.js'
 
-import { DigBonesUp, BedDurabilityUp, HouseDurabilityUp, YardDurabilityUp } from './upgrades/UpgradeTypes.js'
+import { DigBonesUp } from './upgrades/UpgradeTypes.js'
 import UpgradeTable from './UpgradeTable.js'
 
 
