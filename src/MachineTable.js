@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Table, Progress, Popup, Icon } from 'semantic-ui-react'
+import { Button, Table, Popup, Icon } from 'semantic-ui-react'
 
 class MachineTable extends Component {
   constructor(props) {
