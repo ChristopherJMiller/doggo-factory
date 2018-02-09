@@ -9,33 +9,3 @@ export class DigBonesUp extends Upgrade {
     );
   }
 }
-
-export class BedDurabilityUp extends Upgrade {
-  constructor() {
-    super(
-      "Durability Increase +10%",
-      30,
-      0.25
-    );
-  }
-}
-
-export class HouseDurabilityUp extends Upgrade {
-  constructor() {
-    super(
-      "Durability Increase +10%",
-      120,
-      0.25
-    );
-  }
-}
-
-export class YardDurabilityUp extends Upgrade {
-  constructor() {
-    super(
-      "Durability Increase +10%",
-      320,
-      0.25
-    );
-  }
-}

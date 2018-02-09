@@ -19,25 +19,28 @@ class MachineTable extends Component {
       button = <Button disabled>Purchase: B$ { this.props.machine.unitCost() }</Button>;
     }
 
-    let rowHeader = this.props.totalBones < this.props.machine.price;
-    return (
-      <Table.Row disabled={ rowHeader }>
-        <Table.Cell>
-          { this.props.machine.name }
-          <Popup
-           trigger={<Icon name='question circle outline' />}
-           header={this.props.machine.name}
-           content={ this.message }
-           on='hover'
-          />
-        </Table.Cell>
-        <Table.Cell>{ this.props.machine.count }</Table.Cell>
-        <Table.Cell><Progress value={this.props.machine.currentLifetime} total={this.props.machine.totalLifetime} progress='percent' precision={1} /></Table.Cell>
-        <Table.Cell>
-          { button }
-        </Table.Cell>
-      </Table.Row>
-    );
+    let show = this.props.totalBones >= this.props.machine.price;
+    if (show) {
+      return (
+        <Table.Row>
+          <Table.Cell>
+            { this.props.machine.name }
+            <Popup
+            trigger={<Icon name='question circle outline' />}
+            header={this.props.machine.name}
+            content={ this.message }
+            on='hover'
+            />
+          </Table.Cell>
+          <Table.Cell>{ this.props.machine.count }</Table.Cell>
+          <Table.Cell>
+            { button }
+          </Table.Cell>
+        </Table.Row>
+      );
+    } else {
+      return null;
+    }
   }
 }
 
